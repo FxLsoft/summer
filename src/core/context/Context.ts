@@ -78,8 +78,8 @@ export class Context {
         // instantiate all beans - overridden beans will be left out
         _.iterateObject(this.beanWrappers, (key: string, beanEntry: BeanWrapper) => {
             let constructorParamsMeta: any;
-            if (beanEntry.bean.__agBeanMetaData && beanEntry.bean.__agBeanMetaData.autowireMethods && beanEntry.bean.__agBeanMetaData.autowireMethods.__constructor) {
-                constructorParamsMeta = beanEntry.bean.__agBeanMetaData.autowireMethods.__constructor;
+            if (beanEntry.bean.__beanMetaData && beanEntry.bean.__beanMetaData.autowireMethods && beanEntry.bean.__beanMetaData.autowireMethods.__constructor) {
+                constructorParamsMeta = beanEntry.bean.__beanMetaData.autowireMethods.__constructor;
             }
             const constructorParams = this.getBeansForParameters(constructorParamsMeta, beanEntry.bean.name);
             const newInstance = applyToConstructor(beanEntry.bean, constructorParams);
@@ -91,7 +91,7 @@ export class Context {
     }
 
     private createBeanWrapper(Bean: new () => Object): void {
-        const metaData = (Bean as any).__agBeanMetaData;
+        const metaData = (Bean as any).__beanMetaData;
 
         if (!metaData) {
             let beanName: string;
@@ -189,8 +189,8 @@ export class Context {
 
             const constructor: any = prototype.constructor;
 
-            if (constructor.hasOwnProperty('__agBeanMetaData')) {
-                const metaData = constructor.__agBeanMetaData;
+            if (constructor.hasOwnProperty('__beanMetaData')) {
+                const metaData = constructor.__beanMetaData;
                 const beanName = this.getBeanName(constructor);
                 callback(metaData, beanName);
             }
@@ -200,8 +200,8 @@ export class Context {
     }
 
     private getBeanName(constructor: any): string {
-        if (constructor.__agBeanMetaData && constructor.__agBeanMetaData.beanName) {
-            return constructor.__agBeanMetaData.beanName;
+        if (constructor.__beanMetaData && constructor.__beanMetaData.beanName) {
+            return constructor.__beanMetaData.beanName;
         }
 
         const constructorString = constructor.toString();
@@ -369,11 +369,11 @@ function autowiredFunc(target: any, name: string, optional: boolean, classProtot
 }
 
 function getOrCreateProps(target: any): any {
-    if (!target.hasOwnProperty("__agBeanMetaData")) {
-        target.__agBeanMetaData = {};
+    if (!target.hasOwnProperty("__beanMetaData")) {
+        target.__beanMetaData = {};
     }
 
-    return target.__agBeanMetaData;
+    return target.__beanMetaData;
 }
 
 // allows calling 'apply' on a constructor

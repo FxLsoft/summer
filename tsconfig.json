@@ -13,7 +13,7 @@
 		"experimentalDecorators": true,
         "emitDecoratorMetadata": false,
 		"lib": ["es2015", "esnext", "dom"],
-		"types": ["vite/client", "@interactjs/types/typings"],
+		"types": ["vite/client", "@interactjs/types"],
         "paths": {
             "@/*": ["src/*"]
         }
