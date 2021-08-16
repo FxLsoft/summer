@@ -1,0 +1,63 @@
+#app {
+	height: 100%;
+	font-family: "Avenir", Helvetica, Arial, sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.loading-mask {
+    position: absolute;
+    z-index: 200;
+    background-color: hsla(0, 0%, 100%, .5);
+    margin: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    transition: opacity .3s;
+    height: 100%;
+    .loading-spinner {
+        top: 50%;
+        width: 100%;
+        text-align: center;
+        position: absolute;
+        background-color: transparent;
+        .circular {
+            height: 42px;
+            width: 42px;
+            animation: loading-rotate 2s linear infinite;
+        }
+        .path {
+            animation: loading-dash 1.5s ease-in-out infinite;
+            stroke-dasharray: 90, 150;
+            stroke-dashoffset: 0;
+            stroke-width: 2;
+            stroke: #5ac0ff;
+            stroke-linecap: round;
+        }
+    }
+}
+
+.loading-parent {
+    position: relative !important;
+}
+
+@keyframes loading-rotate {
+    100% {
+        transform: rotate(1turn);
+    }
+}
+
+@keyframes loading-dash {
+    0% {
+        stroke-dasharray: 1, 200;
+        stroke-dashoffset: 0;
+    }
+    50% {
+        stroke-dasharray: 90, 150;
+        stroke-dashoffset: -40px;
+    }
+    100% {
+        stroke-dasharray: 90, 150;
+        stroke-dashoffset: -120px;
+    }
+}

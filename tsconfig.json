@@ -1,0 +1,22 @@
+{
+	"compilerOptions": {
+        "baseUrl": ".",
+		"target": "esnext",
+		"module": "esnext",
+		"moduleResolution": "node",
+		"jsx": "preserve",
+		"sourceMap": true,
+		"resolveJsonModule": true,
+		"esModuleInterop": true,
+		"noImplicitAny": true,
+		"declaration": true,
+		"experimentalDecorators": true,
+        "emitDecoratorMetadata": false,
+		"lib": ["es2015", "esnext", "dom"],
+		"types": ["vite/client", "@interactjs/types/typings"],
+        "paths": {
+            "@/*": ["src/*"]
+        }
+	},
+	"include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"]
+}
