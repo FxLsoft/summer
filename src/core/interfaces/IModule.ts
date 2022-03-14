@@ -17,4 +17,4 @@ export interface Module {
 export interface ProxyModule {
     moduleName: string;
     proxy: () =>  Promise<Module>
-};
+}

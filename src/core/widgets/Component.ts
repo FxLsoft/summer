@@ -19,7 +19,7 @@ export class Component extends BaseBean {
         super.destroy();
         this.childComponents.forEach(childComponent => {
             if (childComponent && childComponent.destroy) {
-                (childComponent as any).destroy();
+                childComponent.destroy();
             }
         });
         this.childComponents.length = 0;

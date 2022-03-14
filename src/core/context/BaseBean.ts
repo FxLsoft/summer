@@ -10,7 +10,8 @@ export class BaseBean {
     private destroyed = false;
     protected localEventService: EventService;
     
-    @Autowired('context') private context: Context;
+    @Autowired('context')
+    private context: Context;
 
     // 获取上下文
     public getContext = (): Context => this.context;
@@ -54,15 +55,18 @@ export class BaseBean {
         event: string,
         listener: (event?: any) => void
     ): (() => null) | undefined {
+        
         if (this.destroyed) {
             return;
         }
-
-        if (object instanceof HTMLElement) {
-            object.addEventListener(event, listener);
-        } else {
+        if (object.addEventListener) {
             (object as any).addEventListener(event, listener);
         }
+        // if (object instanceof HTMLElement) {
+        //     object.addEventListener(event, listener);
+        // } else {
+        //     (object as any).addEventListener(event, listener);
+        // }
 
         const destroyFunc: () => null = () => {
             (object as any).removeEventListener(event, listener);

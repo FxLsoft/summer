@@ -45,7 +45,7 @@ export class Context {
         this.contextParams = params;
         this.logger = logger;
 
-        this.logger.log("creating Application Context");
+        this.logger.log("Creating Application Context");
 
         this.setupComponents();
 
@@ -234,6 +234,7 @@ export class Context {
         });
     }
 
+    // 初始化Bean
     public wireBean(bean: any, afterPreCreateCallback?: (comp: BaseBean) => void): void {
         if (!bean) {
             throw Error(`Can't wire to bean since it is null`);
@@ -241,10 +242,11 @@ export class Context {
         this.wireBeans([bean], afterPreCreateCallback);
     }
 
+    // 创建 Component 组件
     public createComponent(key: string, afterPreCreateCallback?: (comp: Component) => void, componentParams?: any, element?: HTMLElement): Component {
         key = escapedComponentName(key);
         if (this.componentsMappedByName && this.componentsMappedByName[key]) {
-            const cls = this.componentsMappedByName[key];
+            // const cls = this.componentsMappedByName[key];
             const newComponent = new this.componentsMappedByName[key](componentParams) as Component;
             this.wireBean(newComponent, afterPreCreateCallback);
             return newComponent;
