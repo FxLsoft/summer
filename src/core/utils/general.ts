@@ -31,7 +31,7 @@ export class Utils {
     }
 
     static exists(value: any, allowEmptyString: boolean = false): boolean {
-        return value != null && (value !== '' || allowEmptyString);
+        return value != null && value != undefined && (value !== '' || allowEmptyString);
     }
 
     static values = <T>(object: { [key: string]: T; }): T[] => Object.keys(object).map(key => object[key]);
