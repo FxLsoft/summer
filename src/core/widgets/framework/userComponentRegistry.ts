@@ -1,12 +1,8 @@
 import { SrOptions } from "@/core/SummerOptions";
 import { Component } from "@vue/runtime-core";
-import { Autowired, Bean, Context, PostConstruct } from "../../context/Context";
-import { IComponent } from "../../interfaces/IComponent";
-/*
- * @description: 
- * @author: fxlsoft
- * @Date: 2021-12-20 11:24:24
- */
+import { Autowired, Bean, Context, PostConstruct } from "@/core/context/Context";
+import { IComponent } from "@/core/interfaces/IComponent";
+
 
 export type RegisteredComponentInput<A extends IComponent<any>> = ComponentFunctionInput | { new(): A };
 export type ComponentFunctionInput = (params: any) => string | HTMLElement;
@@ -36,6 +32,11 @@ export class UserComponentRegistry {
                 this.registerDefaultComponent(it, this.options.components[it]);
             });
         }
+        // if (this.options.frameworkComponents != null) {
+        //     Object.keys(this.options.frameworkComponents).forEach(it => {
+        //         this.registerComponent(it, this.options.frameworkComponents[it]);
+        //     });
+        // }
     }
 
     // 注册默认组件
