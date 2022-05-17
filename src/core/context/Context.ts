@@ -5,7 +5,7 @@ import { BaseBean } from "./BaseBean";
 
 // steps in booting up:
 // 1. create all beans
-// 2. autowire all attributes
+// 2. autowired all attributes
 // 3. wire all beans
 // 4. initialize the model
 // 5. initialize the view
@@ -392,6 +392,5 @@ function escapedComponentName(componentName: string): string {
     // let classEscaped = className.replace(/([A-Z])/g, "-$1").toLowerCase();
     const classEscaped = componentName.replace(/([a-z])([A-Z])/g, "$1-$2").toLowerCase();
     // put all to upper case
-    const classUpperCase = classEscaped.toUpperCase();
-    return classUpperCase;
+    return classEscaped.toUpperCase();
 }

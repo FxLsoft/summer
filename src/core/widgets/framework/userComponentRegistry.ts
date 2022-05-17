@@ -1,6 +1,11 @@
 import { Component } from "@vue/runtime-core";
 import { Autowired, Bean, Context, PostConstruct } from "../../context/Context";
 import { IComponent } from "../../interfaces/IComponent";
+/*
+ * @description: 
+ * @author: fxlsoft
+ * @Date: 2021-12-20 11:24:24
+ */
 import { Options } from "../../Summer";
 
 export type RegisteredComponentInput<A extends IComponent<any>> = ComponentFunctionInput | { new(): A };

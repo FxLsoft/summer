@@ -62,11 +62,11 @@ export class BaseBean {
         if (object.addEventListener) {
             (object as any).addEventListener(event, listener);
         }
-        // if (object instanceof HTMLElement) {
-        //     object.addEventListener(event, listener);
-        // } else {
-        //     (object as any).addEventListener(event, listener);
-        // }
+        if (object instanceof HTMLElement) {
+            object.addEventListener(event, listener);
+        } else {
+            (object as any).addEventListener(event, listener);
+        }
 
         const destroyFunc: () => null = () => {
             (object as any).removeEventListener(event, listener);

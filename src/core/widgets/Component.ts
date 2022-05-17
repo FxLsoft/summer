@@ -1,6 +1,7 @@
 import { BaseBean } from "../context/BaseBean";
 import { IComponent } from "../interfaces/IComponent";
 import { _ } from '../utils';
+
 export class Component extends BaseBean {
 
     private eGui: HTMLElement;
@@ -43,7 +44,7 @@ export class Component extends BaseBean {
     }
 
     public setTemplate(template: string, paramsMap?: any): void {
-        const eGui = _.loadTemplate(template as string);
+        const eGui = _.loadTemplate(template);
         this.eGui = eGui;
     }
 
