@@ -1,7 +1,7 @@
 import { IEventEmitter } from "../interfaces/iEventEmitter";
 import { Autowired, Context, PreDestroy } from "./Context";
 import { SrEvent } from "../events/Events";
-import { EventService } from "../events/EventService";
+import { EventService } from "../services/EventService";
 
 export class BaseBean {
     

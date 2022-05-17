@@ -1,5 +1,5 @@
 import { Autowired, PostConstruct } from './context/Context';
-import { EventService } from './events/EventService';
+import { EventService } from './services/EventService';
 import { Logger, LoggerFactory } from './Logger';
 import { Component } from './widgets/Component';
 

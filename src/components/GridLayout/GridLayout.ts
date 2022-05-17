@@ -1,4 +1,4 @@
-import { EventService } from "@/core/events/EventService";
+import { EventService } from "@/core/services/EventService";
 
 import '@interactjs/auto-start';
 import '@interactjs/actions/drag';

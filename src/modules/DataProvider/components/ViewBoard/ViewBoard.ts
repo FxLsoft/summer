@@ -1,5 +1,5 @@
 import { Autowired, PreConstruct } from "@/core/context/Context";
-import { EventService } from "@/core/events/EventService";
+import { EventService } from "@/core/services/EventService";
 import { UserComponentRegistry } from "@/core/widgets/framework/userComponentRegistry";
 import { Component } from "@/core/widgets/Component";
 import { Logger, LoggerFactory } from "@/core/Logger";

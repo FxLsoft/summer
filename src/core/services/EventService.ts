@@ -1,6 +1,6 @@
 import { IEventEmitter } from "../interfaces/iEventEmitter";
 import { Bean } from "../context/Context";
-import { SrEvent } from "./Events";
+import { SrEvent } from "../events/Events";
 
 @Bean('eventService')
 export class EventService implements IEventEmitter {

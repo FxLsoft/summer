@@ -1,7 +1,7 @@
-import { ComponentMeta } from "../context/Context";
-import { RegisteredComponentInput } from "../widgets/framework/userComponentRegistry";
-import { IComponent } from "./IComponent";
-import { IModel } from "./IModel";
+import { ComponentMeta } from "@/core/context/Context";
+import { RegisteredComponentInput } from "@/core/widgets/framework/userComponentRegistry";
+import { IComponent } from "@/core/interfaces/IComponent";
+import { IModel } from "@/core/interfaces/IModel";
 
 export interface IModule {
     moduleName: string;
@@ -9,7 +9,7 @@ export interface IModule {
     stackComponents?: ComponentMeta[];
     userComponents?: { componentName: string, componentClass: RegisteredComponentInput<IComponent<any>> }[];
     models?: { [name: string]: { new(): IModel } };
-    dependantModules?: IModule[]; // Niall / Sean - my addition
+    dependantModules?: IModule[];
 }
 /**
  * Async IModule

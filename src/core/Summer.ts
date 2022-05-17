@@ -3,7 +3,7 @@ import { IModule } from "./interfaces/IModule";
 import { IModel } from './interfaces/IModel';
 import { ModuleRegistry } from './modules/ModuleRegistry';
 import { Logger, LoggerFactory } from "./Logger";
-import { EventService } from './events/EventService';
+import { EventService } from './services/EventService';
 import { SummerCore } from "./SummerCore";
 import { _ } from './utils';
 import { ReadyEvent, Events } from "./events/Events";

@@ -246,7 +246,6 @@ export class Context {
     public createComponent(key: string, afterPreCreateCallback?: (comp: Component) => void, componentParams?: any, element?: HTMLElement): Component {
         key = escapedComponentName(key);
         if (this.componentsMappedByName && this.componentsMappedByName[key]) {
-            // const cls = this.componentsMappedByName[key];
             const newComponent = new this.componentsMappedByName[key](componentParams) as Component;
             this.wireBean(newComponent, afterPreCreateCallback);
             return newComponent;
@@ -299,7 +298,6 @@ export function PreDestroy(target: Object, methodName: string, descriptor: Typed
 }
 
 export function Bean(beanName: string): Function {
-    // console.log('Bean >> ', beanName);
     return (classConstructor: any) => {
         const props = getOrCreateProps(classConstructor);
         props.beanName = beanName;
@@ -307,21 +305,18 @@ export function Bean(beanName: string): Function {
 }
 
 export function Autowired(name?: string): Function {
-    // console.log('Autowired >> ', name);
     return (target: any, propertyKey: string, descriptor: PropertyDescriptor) => {
         autowiredFunc(target, name, false, target, propertyKey, null);
     };
 }
 
 export function Optional(name?: string): Function {
-    // console.log('Optional >> ', name);
     return (target: any, propertyKey: string, descriptor: PropertyDescriptor) => {
         autowiredFunc(target, name, true, target, propertyKey, null);
     };
 }
 
 export function Qualifier(name: string): Function {
-    // console.log('Qualifier >> ', name);
     return (classPrototype: any, methodOrAttributeName: string, index: number) => {
         const constructor: any = typeof classPrototype == "function" ? classPrototype : classPrototype.constructor;
         let props: any;
