@@ -1,5 +1,5 @@
 import { Autowired, Bean } from "./context/Context";
-import { Options } from "./Summer";
+import type { SrOptions } from "./SummerOptions";
 
 function isTrue(value: any): boolean {
     return value === true || value === 'true';
@@ -8,7 +8,7 @@ function isTrue(value: any): boolean {
 @Bean('optionsWrapper')
 export class OptionsWrapper {
     
-    @Autowired('options') private options: Options;
+    @Autowired('options') private options: SrOptions;
 
     public isDebug() {
         return isTrue(this.options.debug);

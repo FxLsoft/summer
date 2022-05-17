@@ -1,4 +1,4 @@
-import { Autowired, PostConstruct, Context } from './context/Context';
+import { Autowired, PostConstruct } from './context/Context';
 import { EventService } from './events/EventService';
 import { Logger, LoggerFactory } from './Logger';
 import { Component } from './widgets/Component';
@@ -35,7 +35,7 @@ export class SummerCore extends Component {
     }
 
     private createTemplate(): string {
-        const template = `
+        return `
             <div class="loading-mask">
                 <div class="loading-spinner">
                     <svg viewBox="25 25 50 50" class="circular">
@@ -44,8 +44,6 @@ export class SummerCore extends Component {
                 </div>
             </div>
         `;
-
-        return template;
     }
 
     public destroy() {

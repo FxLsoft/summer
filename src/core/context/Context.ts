@@ -169,7 +169,7 @@ export class Context {
     private autoWireBeans(beanInstances: any[]): void {
         beanInstances.forEach(beanInstance => {
             this.forEachMetaDataInHierarchy(beanInstance, (metaData: any, beanName: string) => {
-                const attributes = metaData.agClassAttributes;
+                const attributes = metaData.__classAttributes;
                 if (!attributes) {
                     return;
                 }
@@ -359,7 +359,7 @@ function autowiredFunc(target: any, name: string, optional: boolean, classProtot
 
     // it's an attribute on the class
     const props = getOrCreateProps(target.constructor);
-    const classAttributes = 'agClassAttributes';
+    const classAttributes = '__classAttributes';
     if (!props[classAttributes]) {
         props[classAttributes] = [];
     }

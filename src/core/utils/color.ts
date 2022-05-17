@@ -291,7 +291,7 @@ export class Color {
     }
 
     /**
-     * CSS Color Module Level 4:
+     * CSS Color IModule Level 4:
      * https://drafts.csswg.org/css-color/#named-colors
      */
     private static nameToHex: { [key: string]: string } = Object.freeze({

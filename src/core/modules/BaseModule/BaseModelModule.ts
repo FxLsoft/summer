@@ -1,7 +1,7 @@
-import { Module } from "../../interfaces/IModule";
+import { IModule } from "../../interfaces/IModule";
 import { BaseModel } from './BaseModel';
 
-export const BaseModelModule: Module = {
+export const BaseModelModule: IModule = {
     moduleName: 'BaseModelModule',
     beans: [],
     stackComponents: [],

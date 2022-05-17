@@ -1,9 +1,9 @@
-import { Module, ProxyModule } from "../../core/interfaces/IModule";
+import { IModule, IProxyModule } from "../../core/interfaces/IModule";
 import { TopologyModel } from "./TopologyModel";
 
 export const ModuleName = 'Topology';
 
-export const TopologyModelModule: Module = {
+export const TopologyModelModule: IModule = {
     moduleName: ModuleName,
     beans: [],
     stackComponents: [],

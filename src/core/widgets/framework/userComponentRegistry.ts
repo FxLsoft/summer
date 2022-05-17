@@ -1,3 +1,4 @@
+import { SrOptions } from "@/core/SummerOptions";
 import { Component } from "@vue/runtime-core";
 import { Autowired, Bean, Context, PostConstruct } from "../../context/Context";
 import { IComponent } from "../../interfaces/IComponent";
@@ -6,7 +7,6 @@ import { IComponent } from "../../interfaces/IComponent";
  * @author: fxlsoft
  * @Date: 2021-12-20 11:24:24
  */
-import { Options } from "../../Summer";
 
 export type RegisteredComponentInput<A extends IComponent<any>> = ComponentFunctionInput | { new(): A };
 export type ComponentFunctionInput = (params: any) => string | HTMLElement;
@@ -18,7 +18,7 @@ export type ComponentFunctionInput = (params: any) => string | HTMLElement;
 export class UserComponentRegistry {
 
     @Autowired('options')
-    private options: Options;
+    private options: SrOptions;
 
     @Autowired('context')
     private context: Context;
@@ -34,11 +34,6 @@ export class UserComponentRegistry {
         if (this.options.components != null) {
             Object.keys(this.options.components).forEach(it => {
                 this.registerDefaultComponent(it, this.options.components[it]);
-            });
-        }
-        if (this.options.frameworkComponents != null) {
-            Object.keys(this.options.frameworkComponents).forEach(it => {
-                this.registerComponent(it, this.options.frameworkComponents[it]);
             });
         }
     }

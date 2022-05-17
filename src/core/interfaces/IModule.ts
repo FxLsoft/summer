@@ -3,18 +3,18 @@ import { RegisteredComponentInput } from "../widgets/framework/userComponentRegi
 import { IComponent } from "./IComponent";
 import { IModel } from "./IModel";
 
-export interface Module {
+export interface IModule {
     moduleName: string;
     beans?: any[];
     stackComponents?: ComponentMeta[];
     userComponents?: { componentName: string, componentClass: RegisteredComponentInput<IComponent<any>> }[];
     models?: { [name: string]: { new(): IModel } };
-    dependantModules?: Module[]; // Niall / Sean - my addition
+    dependantModules?: IModule[]; // Niall / Sean - my addition
 }
 /**
- * Async Module
+ * Async IModule
  */
-export interface ProxyModule {
+export interface IProxyModule {
     moduleName: string;
-    proxy: () =>  Promise<Module>
+    proxy: () =>  Promise<IModule>
 }

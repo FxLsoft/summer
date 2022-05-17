@@ -1,16 +1,15 @@
 
 
 export interface IRouter {
-
-    addRoute(route: Route): void;
-    addRoute(parentName: string, route: Route): void;
+    addRoute(route: IRoute): void;
+    addRoute(parentName: string, route: IRoute): void;
     removeRoute(name: string): void;
     hasRoute(name: string): void;
-    getRoutes(): Route[];
+    getRoutes(): IRoute[];
     push(): Promise<void>;
     replace(): Promise<void>;
-    back(): Route;
-    forward(): Route;
+    back(): IRoute;
+    forward(): IRoute;
     go(delta: number): void;
     beforeEach(guard: Function): void;
     afterEach(guard: Function): void;
@@ -19,11 +18,11 @@ export interface IRouter {
 
 }
 
-export interface Route {
+export interface IRoute {
     name: string;
     redirect?: string;
     path?: string;
     query?: Record<string, any>;
-    children?: Route[];
+    children?: IRoute[];
     meta?: Record<string, any>;
 }

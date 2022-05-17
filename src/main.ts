@@ -1,6 +1,6 @@
-const ProxySummer = () => import('./core/Summer');
+import { Summer } from './core/Summer';
+import './modules/Modules';
 
-ProxySummer().then(module => {
-    let summer = new module.Summer('#app', { debug: true, modelType: 'DataProvider' });
-    (window as any).summer = summer;
-});
+const summer = new Summer('#app', { debug: true, modelType: 'DataProvider' });
+
+console.log('summer >> ', summer);

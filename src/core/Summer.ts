@@ -1,5 +1,5 @@
 import { ComponentMeta, Context, ContextParams } from "./context/Context";
-import { Module } from "./interfaces/IModule";
+import { IModule } from "./interfaces/IModule";
 import { IModel } from './interfaces/IModel';
 import { ModuleRegistry } from './modules/ModuleRegistry';
 import { Logger, LoggerFactory } from "./Logger";
@@ -11,42 +11,20 @@ import { Constants } from "./Constants";
 import { OptionsWrapper } from "./OptionsWrapper";
 import { IComponent } from "./interfaces/IComponent";
 import { RegisteredComponentInput, UserComponentRegistry } from "./widgets/framework/userComponentRegistry";
+import { SrOptions, SrParams } from "./SummerOptions";
 
 import "../styles/Common.scss";
-
-/**
- * Summer 配置
- */
-export interface Options {
-    // Debugger 模式
-    debug: boolean,
-    // 启动 Model 类型
-    modelType?: string,
-    // 自定义 Component
-    components?: { [key: string]: RegisteredComponentInput<any> },
-    // 覆盖框架的 Component
-    frameworkComponents?: { [key: string]: { new(): any } }
-}
-/**
- * Summer 参数
- */
-export interface Params {
-    // bean instances to add to the context
-    providedBeanInstances?: { [key: string]: any };
-    modules?: Module[];
-}
 
 export class Summer {
 
     private context: Context;
     private logger: Logger;
-    private readonly options: Options;
-    private readonly params: Params;
+    private readonly options: SrOptions;
+    private readonly params: SrParams;
     private readonly rootDiv: HTMLElement;
     private srCore: SummerCore;
 
-    constructor(el: HTMLElement | string, options: Options, params?: Params) {
-        console.time('Summer');
+    constructor(el: HTMLElement | string, options: SrOptions, params?: SrParams) {
         let rootDiv: HTMLElement;
         if (_.isString(el)) {
             rootDiv = document.querySelector(el as string);
@@ -71,7 +49,6 @@ export class Summer {
 
     private init() {
         const startTime = Date.now();
-
         const options = this.options;
         const params = this.params;
         const rootDiv = this.rootDiv;
@@ -114,20 +91,18 @@ export class Summer {
         this.dispatchReadyEvent(options);
 
         this.logger.log(`initialized successfully ${Date.now() - startTime}ms`);
-
-        console.timeEnd('Summer');
     }
 
-    private createProvidedBeans(rootDiv: HTMLElement, params: Params) {
+    private createProvidedBeans(rootDiv: HTMLElement, params: SrParams) {
         // 外部的Bean
-        const seed = {
+        return {
             rootDiv: rootDiv,
-            options: this.options
+            options: this.options,
+            params: params
         };
-        return seed;
     }
 
-    private createBeansList(registeredModules: Module[]): any[] {
+    private createBeansList(registeredModules: IModule[]): any[] {
         const modelClass = this.getModelClass(registeredModules);
         const beansNoDuplicates: any[] = [];
         // 系统自带的Bean
@@ -147,16 +122,16 @@ export class Summer {
         return beansNoDuplicates;
     }
 
-    private getRegisteredModules(params: Params): Module[] {
-        const passedViaConstructor: Module[] = params ? params.modules : null;
+    private getRegisteredModules(params: SrParams): IModule[] {
+        const passedViaConstructor: IModule[] = params ? params.modules : null;
         const registered = ModuleRegistry.getRegisteredModules();
 
-        const allModules: Module[] = [];
+        const allModules: IModule[] = [];
         const mapNames: { [name: string]: boolean } = {};
 
         // adds to list and removes duplicates
-        function addModule(module: Module) {
-            function addIndividualModule(m: Module) {
+        function addModule(module: IModule) {
+            function addIndividualModule(m: IModule) {
                 if (!mapNames[m.moduleName]) {
                     mapNames[m.moduleName] = true;
                     allModules.push(m);
@@ -181,10 +156,10 @@ export class Summer {
         return allModules;
     }
 
-    private createStackComponentsList(registeredModules: Module[]): any[] {
+    private createStackComponentsList(registeredModules: IModule[]): any[] {
         let components: ComponentMeta[] = [];
 
-        const moduleStackComps = this.extractModuleEntity(registeredModules, (module: Module) => module.stackComponents ? module.stackComponents : []);
+        const moduleStackComps = this.extractModuleEntity(registeredModules, (module: IModule) => module.stackComponents ? module.stackComponents : []);
 
         components = components.concat(moduleStackComps);
 
@@ -195,7 +170,7 @@ export class Summer {
         return [].concat(...moduleEntities.map(extractor));
     }
 
-    private getModelClass(registeredModules: Module[]): any {
+    private getModelClass(registeredModules: IModule[]): any {
         let modelType = this.options.modelType;
         if (!modelType) {
             modelType = Constants.DEFAULT_MODEL_TYPE;
@@ -227,15 +202,16 @@ export class Summer {
         return this.context.getBean('model');
     }
 
-    private dispatchReadyEvent(options: Options): void {
+    private dispatchReadyEvent(options: SrOptions): void {
         const eventService: EventService = this.context.getBean('eventService');
         const readyEvent: ReadyEvent = {
-            type: Events.EVENT_READY
+            type: Events.EVENT_READY,
+            options
         }
         eventService.dispatchEvent(readyEvent);
     }
 
-    private registerModuleUserComponents(registeredModules: Module[]): void {
+    private registerModuleUserComponents(registeredModules: IModule[]): void {
         const userComponentRegistry: UserComponentRegistry = this.context.getBean('userComponentRegistry');
 
         const moduleUserComps: {

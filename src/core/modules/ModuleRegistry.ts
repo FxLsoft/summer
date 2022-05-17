@@ -1,20 +1,19 @@
-import { Module, ProxyModule } from "../interfaces/IModule";
-import { AllModules, AllProxyModules } from '../../modules/Modules';
+import { IModule, IProxyModule } from "../interfaces/IModule";
 
 import { _ } from "../utils";
 
 export class ModuleRegistry {
 
     // having in a map a) removes duplicates and b) allows fast lookup
-    private static modulesMap: { [name: string]: Module } = {};
-    private static asyncModulesMap: {[name: string]: ProxyModule} = {};
+    private static modulesMap: { [name: string]: IModule } = {};
+    private static asyncModulesMap: {[name: string]: IProxyModule} = {};
 
-    public static register(module: Module): void {
+    public static register(module: IModule): void {
         ModuleRegistry.modulesMap[module.moduleName] = module;
     }
 
     // 批量注册模块
-    public static registerModules(modules: Module[]): void {
+    public static registerModules(modules: IModule[]): void {
         if (!modules) {
             return;
         }
@@ -25,15 +24,15 @@ export class ModuleRegistry {
         return !!ModuleRegistry.modulesMap[moduleName];
     }
 
-    public static getRegisteredModules(): Module[] {
+    public static getRegisteredModules(): IModule[] {
         return _.values(ModuleRegistry.modulesMap);
     }
 
-    public static registerAsync(proxyModule: ProxyModule): void {
+    public static registerAsync(proxyModule: IProxyModule): void {
         ModuleRegistry.asyncModulesMap[proxyModule.moduleName] = proxyModule;
     }
 
-    public static registerAsyncModules(proxyModules: ProxyModule[]): void {
+    public static registerAsyncModules(proxyModules: IProxyModule[]): void {
         if (!proxyModules) {
             return;
         }
@@ -44,11 +43,11 @@ export class ModuleRegistry {
         return !!ModuleRegistry.asyncModulesMap[moduleName];
     }
 
-    public static registerAsyncByModuleName(moduleName: string): Promise<Module> {
-        return new Promise<Module>((resolve, reject) => {
+    public static registerAsyncByModuleName(moduleName: string): Promise<IModule> {
+        return new Promise<IModule>((resolve, reject) => {
             let proxyModule = ModuleRegistry.asyncModulesMap[moduleName];
             if (proxyModule) {
-                proxyModule.proxy().then((module: Module) => {
+                proxyModule.proxy().then((module: IModule) => {
                     delete ModuleRegistry.asyncModulesMap[moduleName];
                     ModuleRegistry.register(module);
                     resolve(module)
@@ -59,6 +58,3 @@ export class ModuleRegistry {
         });
     }
 }
-
-ModuleRegistry.registerModules(AllModules);
-ModuleRegistry.registerAsyncModules(AllProxyModules);

@@ -1,11 +1,11 @@
-import { Module, ProxyModule } from '@/core/interfaces/IModule';
+import { IModule, IProxyModule } from '@/core/interfaces/IModule';
 
 const proxyModule = () => import('./TopologyModelModule')
 
-export const TopologyModelModule: ProxyModule = {
+export const TopologyModelModule: IProxyModule = {
     moduleName: 'Topology',
     proxy: () => {
-        return new Promise<Module>((resolve, reject) => {
+        return new Promise<IModule>((resolve, reject) => {
             proxyModule().then(module => resolve(module.TopologyModelModule))
         })
     }

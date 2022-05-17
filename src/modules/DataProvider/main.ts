@@ -1,13 +1,13 @@
-import { Module, ProxyModule } from '@/core/interfaces/IModule';
+import { IModule, IProxyModule } from '@/core/interfaces/IModule';
 
 const proxyModule = () => import('./DataProviderModelModule');
 
 export const ModuleName = 'DataProvider';
 
-export const DataProviderModule: ProxyModule = {
+export const DataProviderModule: IProxyModule = {
     moduleName: ModuleName,
     proxy: () => {
-        return new Promise<Module>((resolve, reject) => {
+        return new Promise<IModule>((resolve, reject) => {
             proxyModule().then(module => resolve(module.default))
         })
     } 
