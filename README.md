@@ -11,12 +11,34 @@ Summer 项目是一个基于TypeScript 的前端开发框架，借鉴了 Spring 
 
 ## 示例代码
 
-以下是项目的入口文件 `src/main.ts` 的示例代码：
+以下是成为库文件后使用的示例代码：
 
 ```typescript
-import { Summer } from './core/Summer';
-import './modules/Modules';
+import { Summer, Application, Autowired, PreConstruct, IModel, Constants } from "summer";
 
-const summer = new Summer('#app', { debug: true, modelType: 'DataProvider' });
+@Application()
+export class MaskEditorApp extends Summer<MaskEditorOptions, MaskEditorParams> implements IModel {
+    @Autowired()
+    private data: CanvasData;
+    @Autowired()
+    public state: State;
+    @Autowired()
+    private offscreen: Offscreen;
+    @Autowired()
+    private activeLayer: ActiveLayer;
+    @Autowired()
+    private hoverLayer: HoverLayer;
+    @Autowired()
+    private divLayer: DivLayer;
 
-console.log('summer >> ', summer);
+    @PreConstruct
+    _init() {
+        // 初始化
+    }
+
+    destroy() {
+        super.destroy();
+    }
+}
+
+```
